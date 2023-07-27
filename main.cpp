@@ -4,15 +4,8 @@
 
 using namespace std;
 
-const char * iv_encrypt(const char * pt_arr, const char * iv){
-
-	char * ciphered_block[8];
-	for(int i = 0; i<8; i++){
-		ciphered_block[i] += pt_arr[i] ^ iv[i];
-	}
-
-	return ciphered_block;
-}
+// all plain text should always be divisible by 8. The block size is 8 bytes
+// There is no default padding in this current implementation
 
 string encrypt(string plain_text, string key){
 
@@ -24,6 +17,13 @@ string encrypt(string plain_text, string key){
 	// number of plain text blocks we have to process
 	int blocks = plain_text.length() / 8;
 
+	// xors with iv.
+	char b0[8];
+
+	for(int i = 0; i<8; i++){
+		b0[i] = (char)(pt_arr[i] ^ iv[i]);
+
+	}
 
 
 }
