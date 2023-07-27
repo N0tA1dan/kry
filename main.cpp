@@ -6,6 +6,7 @@ using namespace std;
 
 // all plain text should always be divisible by 8. The block size is 8 bytes
 // There is no default padding in this current implementation
+// Modulo the plain_text in order to find the rounds neccasarry 
 
 string encrypt(string plain_text, string key){
 
@@ -22,9 +23,8 @@ string encrypt(string plain_text, string key){
 
 	for(int i = 0; i<8; i++){
 		b0[i] = (char)(pt_arr[i] ^ iv[i]);
-
 	}
-
+	
 
 }
 
