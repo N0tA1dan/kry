@@ -8,7 +8,7 @@ The whole algorithm was made by me around mid of 2022
 
 ### FlowChart
 
-![flowchart](Kryptonchart.PNG "flowchart")
+![flowchart](diagram-export-7_26_2023, 11 24 32 PM.png "flowchart")
 
 ### Implementation
 if you would like to implement this in any programming language go for it. if you successfully implement it, email me at notaidan99@gmail.com and I can upload it
