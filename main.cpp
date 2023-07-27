@@ -8,7 +8,7 @@ const char * iv_encrypt(const char * pt_arr, const char * iv){
 
 	char * ciphered_block[8];
 	for(int i = 0; i<8; i++){
-		ciphered_block += pt_arr[i] ^ iv[i];
+		ciphered_block[i] += pt_arr[i] ^ iv[i];
 	}
 
 	return ciphered_block;
