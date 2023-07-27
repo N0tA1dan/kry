@@ -12,3 +12,5 @@ The whole algorithm was made by me around mid of 2022
 
 ### Implementation
 if you would like to implement this in any programming language go for it. if you successfully implement it, email me at notaidan99@gmail.com and I can upload it
+
+flowchart made with eraser.io
