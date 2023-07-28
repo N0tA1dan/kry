@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "base64.h"
+#include "b64.h"
 
 using namespace std;
 
@@ -47,12 +47,8 @@ string encrypt(string plain_text, string key){
 	// key definitions for round keys
 	const char * k1  = (key.substr(0, 8)).c_str();
 	const char * k2 = (key.substr(8, 8)).c_str();
-    const char * k3 = (key.substr(16, 8)).c_str();
-    const char * k4 = (key.substr(24, 8)).c_str();
-
-	for(int i =0; i<8; i++){
-		cout<<k2[i];
-	}
+    	const char * k3 = (key.substr(16, 8)).c_str();
+    	const char * k4 = (key.substr(24, 8)).c_str();
 
 	// number of plain text blocks we have to process
 	int blocks = plain_text.length() / 8;
@@ -67,7 +63,33 @@ string encrypt(string plain_text, string key){
 	leftRotate(b0, 8, 1);
 	// rotates all elements <<
 
+	
+	char b1[8];
+	for(int i = 0; i<8; i++){
+		b1[i] = (char)(b0[i] ^ k1[i]);
+	}
+	leftRotate(b1, 8, 1);
+
+	
+	// inverse
+	char o1[8];
+	rightRotate(b1, 8, 1);
+	for(int i = 0; i<8; i++){
+		o1[i] = (char)(b1[i] ^ k1[i]);
+	}
+
+	char o2[8];
+	rightRotate(o1, 8, 1);
+	for(int i = 0; i<8; i++){
+		o2[i] = (char)(o1[i] ^ iv[i]);
+	}
+
+	// string.assign only works to convert to printable characters (idk why nothing else works)
+	string test;
+	test.assign(o2, o2+8);
+	cout<<test;
 }
+
 
 int main(){
 	encrypt("Meow1234", "aaaaaaa1aaaaaaa2aaaaaaa3aaaaaaa4bbbbbbbb");
