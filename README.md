@@ -11,7 +11,7 @@ The whole algorithm was made by me around mid of 2022
 ![encrypton](diagram4.png "encrypton")
 
 ### Decryption diagram
-![decryption](decryptionDiagram.png "decryption")
+![decryption](krydecryptionDiagram.png "decryption")
 
 ### Implementation
 if you would like to implement this in any programming language go for it. if you successfully implement it, email me at notaidan99@gmail.com and I can upload it
