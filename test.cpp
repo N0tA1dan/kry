@@ -49,49 +49,82 @@ static const uint8_t rsbox[256] = {
 
 // The SubBytes Function Substitutes the values in the
 // state matrix with values in an S-box.
-// takes a array 10*4 or 4 columns 10 rows.
-static void SubBytes(uint8_t state[10][4])
+// takes a array 2*4 or 4 columns 2 rows.
+// this will be represented as an 8 byte block.
+static void SubBytes(uint8_t state[2][4])
 {
   uint8_t i, j;
-  for (i = 0; i < 4; ++i)
+  for (i = 0; i < 10; ++i)
   {
-    for (j = 0; j < 10; ++j)
+    for (j = 0; j < 4; ++j)
     {
-      (state)[j][i] = getSBoxValue((state)[j][i]);
+      (state)[i][j] = getSBoxValue((state)[i][j]);
     }
   }
 }
 
+// The SubBytes Function Substitutes the values in the
+// state matrix with values in an S-box.
+static void InvSubBytes(uint8_t state[2][4])
+{
+  uint8_t i, j;
+  for (i = 0; i < 2; ++i)
+  {
+    for (j = 0; j < 4; ++j)
+    {
+      (state)[i][j] = getSBoxInvert((state)[i][j]);
+    }
+  }
+}
 
+// custom function to convert a 8 byte array to a 2*4 2d array.
+static void arrayToTwoDimensional(uint8_t inpArray[9], uint8_t outputArray[2][4]){
+  int i, j, k=0;
+  for(i=0;i<2;i++)
+    {
+      for(j=0;j<4;j++)
+      {
+        outputArray[i][j] = (inpArray)[k++];
+      }
+    }
+}
+
+static void arrayToOneDimensional(uint8_t inpArray[2][4], uint8_t outputArray[9]){
+  int i, j, k=0;
+  for(i=0;i<2;i++)
+    {
+      for(j=0;j<4;j++)
+      {
+        outputArray[k] = inpArray[i][j];
+        k++;
+      }
+    }
+}
 
 int main(){
-    uint8_t a[10][4] = {
-        {0, 0xFA, 0xEF, 0xFF},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16},
-        {17, 18, 19, 20},
-        {21, 22, 23, 24},
-        {25, 26, 27, 28},
-        {29, 30, 31, 32},
-        {33, 34, 35, 36},
-        {37, 38, 39, 0},
+    uint8_t a[2][4] = {
+        {'0', '1', '2', '3'},
+        {'4', '5', '6', '7'}
     };
 
     // output should be c since 00 -> 63 and 0x63 = c
     // 0x00 = int(0)
-    SubBytes(a);
+    //SubBytes(a);
+    
 
-    int i,j;
+  uint8_t inpArray[9] = "abcdefgh";
+  uint8_t outputArray[2][4];
+  arrayToTwoDimensional(inpArray, outputArray);
+
+  uint8_t outputArray2[9];
+
+  arrayToOneDimensional(a, outputArray2);
+
+  int i,j;
 	
 	cout<<"Printing a 2D Array:\n";
-	for(i=0;i<10;i++)
-	{
-		for(j=0;j<4;j++)
-		{
-			cout<<"\t"<<a[i][j];
-		}
-		cout<<endl;
-	}
-    //const uint8_t* b = stringToBytes(a);
+  for(i=0; i<8;i++){
+    cout<<outputArray2[i];
+  }
+
 }
