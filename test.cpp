@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 
 using namespace std;
 
@@ -51,9 +52,9 @@ static const uint8_t rsbox[256] = {
 // state matrix with values in an S-box.
 // takes a array 2*4 or 4 columns 2 rows.
 // this will be represented as an 8 byte block.
-static void SubBytes(uint8_t state[2][4])
+static void SubBytes(char state[2][4])
 {
-  uint8_t i, j;
+  int i, j;
   for (i = 0; i < 10; ++i)
   {
     for (j = 0; j < 4; ++j)
@@ -65,9 +66,9 @@ static void SubBytes(uint8_t state[2][4])
 
 // The SubBytes Function Substitutes the values in the
 // state matrix with values in an S-box.
-static void InvSubBytes(uint8_t state[2][4])
+static void InvSubBytes(char state[2][4])
 {
-  uint8_t i, j;
+  int i, j;
   for (i = 0; i < 2; ++i)
   {
     for (j = 0; j < 4; ++j)
@@ -78,7 +79,7 @@ static void InvSubBytes(uint8_t state[2][4])
 }
 
 // custom function to convert a 8 byte array to a 2*4 2d array.
-static void arrayToTwoDimensional(uint8_t inpArray[9], uint8_t outputArray[2][4]){
+static void arrayToTwoDimensional(char inpArray[9], char outputArray[2][4]){
   int i, j, k=0;
   for(i=0;i<2;i++)
     {
@@ -89,7 +90,7 @@ static void arrayToTwoDimensional(uint8_t inpArray[9], uint8_t outputArray[2][4]
     }
 }
 
-static void arrayToOneDimensional(uint8_t inpArray[2][4], uint8_t outputArray[9]){
+static void arrayToOneDimensional(char inpArray[2][4], char outputArray[9]){
   int i, j, k=0;
   for(i=0;i<2;i++)
     {
@@ -102,29 +103,26 @@ static void arrayToOneDimensional(uint8_t inpArray[2][4], uint8_t outputArray[9]
 }
 
 int main(){
-    uint8_t a[2][4] = {
-        {'0', '1', '2', '3'},
+  string hello = "12345678";
+  char b[8];
+  char output[2][4];
+  strcpy(b, hello.c_str());
+
+  arrayToTwoDimensional(b, output);
+    char a[2][4] = {
+        {0x00, '1', '2', '3'},
         {'4', '5', '6', '7'}
     };
 
-    // output should be c since 00 -> 63 and 0x63 = c
-    // 0x00 = int(0)
-    //SubBytes(a);
-    
-
-  uint8_t inpArray[9] = "abcdefgh";
-  uint8_t outputArray[2][4];
-  arrayToTwoDimensional(inpArray, outputArray);
-
-  uint8_t outputArray2[9];
-
-  arrayToOneDimensional(a, outputArray2);
-
+  // output should be c since 00 -> 63 and 0x63 = c
+  // 0x00 = int(0)
+  //SubBytes(a);
+  
   int i,j;
-	
-	cout<<"Printing a 2D Array:\n";
-  for(i=0; i<8;i++){
-    cout<<outputArray2[i];
+  for(i = 0; i<2;i++){
+    for(j = 0; j<4; j++){
+      cout<<"\t"<<output[i][j]; 
+    }
+    cout<<endl;
   }
-
 }
